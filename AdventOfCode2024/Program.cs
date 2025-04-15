@@ -72,83 +72,131 @@ foreach (var item in listsday1.rawData)
 
     listsday1.AddToList1(int.Parse(parts[0]));
 
-    listsday1.AddToList2(int.Parse(parts[parts.Length-1]));
+    listsday1.AddToList2(int.Parse(parts[parts.Length - 1]));
 
 }
 
 
 //var DataDay1a = new InputProcessing();
 
-    //InputProcessing.DataInput(fileName);
+//InputProcessing.DataInput(fileName);
 
 
-    /*
-    listsday1.AddToList1(3);
-    listsday1.AddToList1(4);
-    listsday1.AddToList1(2);
-    listsday1.AddToList1(1);
-    listsday1.AddToList1(3);
-    listsday1.AddToList1(3);
+/*
+listsday1.AddToList1(3);
+listsday1.AddToList1(4);
+listsday1.AddToList1(2);
+listsday1.AddToList1(1);
+listsday1.AddToList1(3);
+listsday1.AddToList1(3);
 
-    listsday1.AddToList2(4);
-    listsday1.AddToList2(3);
-    listsday1.AddToList2(5);
-    listsday1.AddToList2(3);
-    listsday1.AddToList2(9);
-    listsday1.AddToList2(3);
+listsday1.AddToList2(4);
+listsday1.AddToList2(3);
+listsday1.AddToList2(5);
+listsday1.AddToList2(3);
+listsday1.AddToList2(9);
+listsday1.AddToList2(3);
 */
-    Console.WriteLine("location team 1 before sorting");
+Console.WriteLine("location team 1 before sorting");
 
-    foreach (var item in listsday1.locationsTeam1)
+foreach (var item in listsday1.locationsTeam1)
+{
+   // Console.WriteLine(item.ToString());
+}
+
+Console.WriteLine("location team 2 before sorting");
+
+foreach (var item in listsday1.locationsTeam2)
+{
+    // Console.WriteLine(item.ToString());
+}
+
+
+listsday1.locationsTeam1.Sort();
+listsday1.locationsTeam2.Sort();
+
+Console.WriteLine("location team 1 after sorting");
+
+foreach (var item in listsday1.locationsTeam1)
+{
+    //Console.WriteLine(item.ToString());
+}
+
+Console.WriteLine("location team 2 after sorting");
+
+foreach (var item in listsday1.locationsTeam2)
+{
+    //Console.WriteLine(item.ToString());
+}
+
+int i4 = 0;
+int i3 = 0;
+
+for (int i1 = 0; i1 < listsday1.locationsTeam1.Count; i1++)
+{
+    for (i1 = 0; i1 < listsday1.locationsTeam2.Count; i1++)
     {
-        Console.WriteLine(item.ToString());
+        i3 = Math.Abs(listsday1.locationsTeam1[i1] - listsday1.locationsTeam2[i1]);
+
+        i4 = i4 + i3;
+
+        //Console.WriteLine("Current Length is:");
+        //Console.WriteLine(i4);
     }
+}
 
-    Console.WriteLine("location team 2 before sorting");
+Console.WriteLine(" ");
+//Console.WriteLine("Final Length is:");
+//Console.WriteLine(i4);
 
-    foreach (var item in listsday1.locationsTeam2)
+int similarityScore=0;
+//int multiplier = 0;
+
+//*/ 1B
+
+for (int i1 = 0; i1 < listsday1.locationsTeam1.Count; i1++)
+{
+    int multiplier = 0;
+
+    for (int i2 = 0; i2 < listsday1.locationsTeam2.Count; i2++)
     {
-        Console.WriteLine(item.ToString());
-    }
+        int l1 = Math.Abs(listsday1.locationsTeam1[i1]);
+        int l2 = Math.Abs(listsday1.locationsTeam2[i2]);
 
-
-    listsday1.locationsTeam1.Sort();
-    listsday1.locationsTeam2.Sort();
-
-    Console.WriteLine("location team 1 after sorting");
-
-    foreach (var item in listsday1.locationsTeam1)
-    {
-        Console.WriteLine(item.ToString());
-    }
-
-    Console.WriteLine("location team 2 after sorting");
-
-    foreach (var item in listsday1.locationsTeam2)
-    {
-        Console.WriteLine(item.ToString());
-    }
-
-    int i4 = 0;
-    int i3 = 0;
-
-    for (int i1 = 0; i1 < listsday1.locationsTeam1.Count; i1++)
-    {
-        for (i1 = 0; i1 < listsday1.locationsTeam2.Count; i1++)
+        if (listsday1.locationsTeam1[i1] == listsday1.locationsTeam2[i2])
         {
-            i3 = Math.Abs(listsday1.locationsTeam1[i1] - listsday1.locationsTeam2[i1]);
-
-            i4 = i4 + i3;
-
-            Console.WriteLine("Current Length is:");
-            Console.WriteLine(i4);
+            multiplier = multiplier + 1;
+            similarityScore = similarityScore + l1;
         }
-    }
 
-    Console.WriteLine(" ");
-    Console.WriteLine("Final Length is:");
-    Console.WriteLine(i4);
-    //*/
+        /*
+        Console.WriteLine("Current number in l1 is:");
+        Console.WriteLine(l1);
+
+        Console.WriteLine("Current number in l2 is:");
+        Console.WriteLine(l2);
+
+
+        Console.WriteLine("Current SimilarityScore is:");
+        Console.WriteLine(similarityScore);
+
+        Console.WriteLine("");
+        Console.WriteLine("");
+        */
+    }
+}
+
+Console.WriteLine("SimilarityScore is:");
+Console.WriteLine(similarityScore);
+
+
+
+
+
+
+
+
+
 namespace AdventOfCode2024
 {
 
@@ -184,6 +232,8 @@ namespace AdventOfCode2024
 
 
     }
+
+
     /*
         public class Program
         {
@@ -192,47 +242,7 @@ namespace AdventOfCode2024
 
             }
         }
-    */
-    /*    public class InputProcessing
-        {
-            public InputProcessing()
-                {
-                }
-
-            //private const string fileName = "Input_1a.txt";
-
-            public void DataInput(string fileName)
-            {
-                int i = 0;
-
-                if (File.Exists(fileName))
-                {
-                    using (var reader = File.OpenText(fileName))
-                    {
-                        var line = reader.ReadLine();
-
-                        while (line != null)
-                        {
-                            string inputLine = Convert.ToString(line);
-
-                            ShowInput(inputLine);
-
-                            line = reader.ReadLine();
-
-                            i++;
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("File missing");
-                }
-            }
-
-            public void ShowInput(string showInput)
-            {
-                Console.WriteLine(showInput);
-            }
+    
 
         }
     */
